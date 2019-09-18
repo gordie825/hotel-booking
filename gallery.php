@@ -62,28 +62,31 @@ include 'inc/header.php';
         <!-- filter buttons end -->
         <br/>
 
-
+                <!-- section start for the pictures -->
         <section class="pictures">
-<div class="lookbook">
-<div class="container">
-    <div class="glen gallery_product filter glen">
-            <div class="row">
-                <div class="column">
-                    <p id="pics"><img src="images/glen/glen1.jpeg">
-                    </p>
-                </div>
-                <div class="column">
-                    <p id="pics"> <img src="images/glen/glen2.jpeg"></p>
-                </div>
-                <div class="column">
-                    <p id="pics"><img src="images/glen/glen3.jpg"></p>
-                </div>
-                <div class="column">
-                    <p id="pics"> <img src="images/glen/glen4.jpg"></p>
-                </div>
-            </div>
-    </div>
+            <div class="lookbook">
+                 <div class="container">
+                 <!-- glen hotels pictures -->
+                    <div class="glen gallery_product filter glen">
+                            <div class="row">
+                                <div class="column">
+                                    <p id="pics"><img src="images/glen/glen1.jpeg">
+                                    </p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"> <img src="images/glen/glen2.jpeg"></p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"><img src="images/glen/glen3.jpg"></p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"> <img src="images/glen/glen4.jpg"></p>
+                                </div>
+                            </div>
+                    </div>
+                <!-- glen hotels pictures end-->    
     
+    <!-- signature hotels pictures -->
     <div class="signature gallery_product filter signature">
             <div class="row">
                 <div class="column">
@@ -100,7 +103,9 @@ include 'inc/header.php';
                 </div>
             </div>
     </div>
+<!-- signature hotels pictures end -->
 
+<!-- stock hotels pictures -->
     <div class="stock gallery_product filter stock">
             <div class="row">
                 <div class="column">
@@ -117,7 +122,9 @@ include 'inc/header.php';
                 </div>
             </div>
     </div>
+<!-- stock hotels pictures end -->
 
+<!-- taj hotels pictures -->
     <div class="taj gallery_product filter taj">
             <div class="row">
                 <div class="column">
@@ -134,7 +141,9 @@ include 'inc/header.php';
                 </div>
             </div>
     </div>
+<!-- taj hotels pictures end -->
 
+<!-- vineyard hotels pictures -->
     <div class="vineyard gallery_product filter vineyard">
             <div class="row">
                 <div class="column">
@@ -151,6 +160,7 @@ include 'inc/header.php';
                 </div>
             </div>
     </div>
+<!-- vineyard hotels pictures end -->
         </div>
         </div>
     </div>
