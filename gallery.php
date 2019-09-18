@@ -15,9 +15,29 @@ include 'inc/header.php';
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="css/gallery.css" rel="stylesheet" type="text/css">
-    <title>Document</title>
+    <title>Hotels</title>
 </head>
 <body>
+<table class="table table-hover table-dark">
+<tr>
+<th scope="col">ID</th>
+<th scope="col">Hotel Name</th>
+<th scope="col">Daily Rate</th>
+</tr>
+<?php
+$sql = "SELECT id, name, daily_rate FROM hotels";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+// output data of each row
+while($row = $result->fetch_assoc()) {
+echo "<tr><td> " . $row["id"]. "</td><td>" . $row["name"] . "</td><td>"
+. $row["daily_rate"]. "</td></tr>";
+}
+echo "</table>";
+} else { echo "0 results"; }
+$conn->close();
+?>
+</table>
 <div class="container">
         <div class="row">
         <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">

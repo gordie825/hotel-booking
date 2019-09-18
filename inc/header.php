@@ -28,6 +28,9 @@
             <li class="nav-item">
             <a class="nav-link" href="gallery.php">HOTELS</a>
             </li>
+            <!-- <li class="nav-item">
+            <a class="nav-link" href="viewhotels.php">View HOTELS</a>
+            </li> -->
         </ul>
     </div>
     </nav>
