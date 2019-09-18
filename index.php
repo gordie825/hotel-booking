@@ -4,143 +4,172 @@ include ('user.php');
 include('connection.php');
 include 'inc/header.php';
 ?>
-    <div class="container">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- bootsrap link -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- custom css -->
+    <link href="css/gallery.css" rel="stylesheet" type="text/css">
+    <title>Hotels</title>
+</head>
+<body>
+<!-- table start for details of the hotels -->
+            <table class="table table-hover table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Daily Rate</th>
+                </tr>
+                <?php
+                // this wehre we select all the neccessary columns in the database
+                $sql = "SELECT id, name, daily_rate FROM hotels";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                echo "<tr><td><a href='gallery.php' class='clickable'>" . $row["id"]. "</a></td><td><a href='gallery.php' class='clickable'>" . $row["name"] . "</a></td><td>
+                <a href='gallery.php' class='clickable'>"
+                . $row["daily_rate"]. "</a></td></tr>";
+                }
+                echo "</table>";
+                } else { echo "0 results"; }
+                $conn->close();
+                ?>
+            </table>
+<!-- table end for details of the hotels -->
+
+<!-- Gallery section start -->
+<div class="container">
         <div class="row">
-        <div class="col-lg-6 mx-2 my-2 bg-transparent form-col">
-            <div class="form-container body-form">
-            <h1 class="h1 text-center form-heading"> DMF HOTEL BOOKINGS</h1>
-            </div>
-            <!--Form Starts Here-->
-            <form role="form" method="POST" class="form-holder"> 
-            <div class="form-group"> 
-                <label for="name">Name</label> 
-                <input type="text" class="form-control" id="name"  
-                    placeholder="Please Enter First Name" name="name" required> 
-            </div> 
-            <div class="form-group"> 
-                <label for="surname">Surname</label> 
-                <input type="text"  class="form-control" id="surname" placeholder="Please Enter Your Surname." name="surname"required> 
-            </div>
-            <div class="form-group"> 
-            <label for="name">Select hotel</label> 
-            <!--PHP CODE TO INSTERT HOTELS IN THE DATABASE-->
-            <select name ="hotels"class="form-control">
-            <?php
-            // function to load hotels
-            include 'hotels.php';
-            loadHotels();
-            ?>
-            </select>  
-            </div>
-            <div class="form-row">
-                <div class="col-5 check-in-date">
-                <label for="check-in">Select Check-in Date<span class="glyphicon glyphicon-calender"></span></label>
-                <input type="date" class="form-control" placeholder=".col-5" name="check-in" value="<?php echo date("Y-m-d");?>"required>
-                </div>
-                <div class="col-5 check-out-date">
-                <label for="check-out">Select Check-out Date<span class="glyphicon glyphicon-calender"><i class="fab fa-html5"></i></span></label>
-                <input type="date" class="form-control" placeholder=".col-3" name="check-out" required> 
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg btn-block my-2" name="submit">Submit Booking</button> 
-            </form>
-            <!--Form ENDS Here-->
+        <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h1 class="gallery-title">Gallery</h1>
         </div>
-        <div class="col-lg-4 my-2 confirm-container">
+        <!-- filter buttons start -->
+        <div class="filters">
+            <button class="btn btn-default filter-button" data-filter="all">All</button>
+            <button class="btn btn-default filter-button" data-filter="signature">Signature Lux Hotel</button>
+            <button class="btn btn-default filter-button" data-filter="glen">The Glen Boutique Hotel</button>
+            <button class="btn btn-default filter-button" data-filter="taj">Taj Cape Town</button>
+            <button class="btn btn-default filter-button" data-filter="vineyard">Vineyard</button>
+            <button class="btn btn-default filter-button" data-filter="stock">Stock Exchange Apartment</button>
+        </div>
+        <!-- filter buttons end -->
+        <br/>
 
-        <?php
-        if(isset($_POST['submit'])){
-            if(!isset($_POST['confirm-booking'])){
-                //display the inputs
-                 //first name of guest
-            $firstName  =   $_POST['name'];
-            //surname of guest
-            $lastName   =   $_POST['surname'];
-            //concatenate names to one-- for outoput purposes
-            $guestName  =   $firstName." ".$lastName;
-            //important variables
-            //hotel selected
-            $hotelchoice =   $_POST['hotels'];
-            include 'dailyrate.php';
-            $hotelRate = dailyRateQuery($hotelchoice);
-            //code block to calculate the number of days guest will stay at hotel.
-            //Check in date -STRING
-            $checkin    =  $_POST['check-in'];
-            //check out date -STRING
-            $checkout    = $_POST['check-out'];
-            $amountdue = amountDue($checkin,$checkout,$hotelRate);
-            // // create a function
-            confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$amountdue,$firstName,$lastName);
-            }//else statement to check for duplicate bookings or insert new bookings
-            else{
-                //once set send to mySQL
-                $firstName  =   $_POST['firstname-confirm'];
-                $lastName   =   $_POST['lastname-confirm'];
-                $checkin    =   $_POST['checkin-confirm'];
-                $checkout   =   $_POST['checkout-confirm'];
-                $hotelchoice =  $_POST['hotel-confirm'];
-                $amountdue  =   $_POST['cost-confirm'];
-                //select from database where name,hotel, if non exits insert into database
-
-                //query the database 
-
-                $sql_search ="SELECT * FROM  booking WHERE firstname = '$firstName 'AND  lastName='$lastName'";
-                $tableSearch_result = $conn->query($sql_search);
-                if($tableSearch_result->num_rows>0){
-                    $existBooking   = $tableSearch_result->fetch_assoc();
-                    $existingBooking_id = $existBooking['id'];
-                    $existBooking_name = $existBooking['firstName'];
-                    $existBooking_lname = $existBooking['lastName'];
-                    $existBooking_hotel = $existBooking['hotel'];
-                    $existBooking_check_in =$existBooking['check_in_date'];
-                    $existBooking_check_out =$existBooking['check_out_date'];
-                    echo<<<END
-                    <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                        <h2 class="h2 text-center">Previous Booking Found!!</h2>
-                        <p>Would you like to delete your previous booking or continue with this one?</p>
-                        <ul>
-                            <li>Full Name: $firstName $lastName</li>
-                            <li>Hotel Booked: $existBooking_hotel</li>
-                            <li> Check In Date: $existBooking_check_in</li>
-                            <li> Check Out Date: $existBooking_check_out</li>
-                        </ul>
-                        <form method="POST">
-                        <input type="hidden"  name="replace-id" value="$existingBooking_id">
-                        <input type="hidden" name="confirm-booking">
-                        <input type="hidden" name="firstname-confirm" value="$firstName">
-                        <input type="hidden" name="lastname-confirm" value="$lastName">
-                        <input type="hidden" name="hotel-confirm" value="$hotelchoice">
-                        <input type="hidden" name="checkin-confirm" value="$checkin">
-                        <input type="hidden" name="checkout-confirm" value="$checkout">
-                        <input type="hidden" name="cost-confirm" value="$amountdue">
-                        <input type="hidden" name="submit">
-                        <input type="submit" name="previous" value="Yes">
-                        <input type="submit" name="previous" value="No">
-                        </form>
-                        </div>
+                <!-- section start for the pictures -->
+        <section class="pictures">
+            <div class="lookbook">
+                 <div class="container">
+                 <!-- glen hotels pictures -->
+                    <div class="glen gallery_product filter glen">
+                            <div class="row">
+                                <div class="column">
+                                    <p id="pics"><img src="images/glen/glen1.jpeg">
+                                    </p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"> <img src="images/glen/glen2.jpeg"></p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"><img src="images/glen/glen3.jpg"></p>
+                                </div>
+                                <div class="column">
+                                    <p id="pics"> <img src="images/glen/glen4.jpg"></p>
+                                </div>
+                            </div>
                     </div>
-                    </div>
-END;
-            }else{include 'dailyrate.php';
-                insertEntry($firstName,$lastName,$hotelchoice,$checkin,$checkout,$amountdue);}  
-        }
-        if(isset($_POST['previous'])){
-            if($_POST['previous'] == 'Yes'){
-                $existingBooking_id = $_POST['replace-id'];
-                include 'dailyrate.php';
-                deleteEntry($existingBooking_id,$firstName,$lastName,$hotelchoice,$checkin,$checkout,$amountdue);
-                echo " replace ---- ". $existingBooking_id; 
-                echo " First Name: " . $firstName;
-            }else{
-                header('Location: index.php');
-            }
-        }
-    }
-        ?>
-        </div>  
+                <!-- glen hotels pictures end-->    
+    
+    <!-- signature hotels pictures -->
+    <div class="signature gallery_product filter signature">
+            <div class="row">
+                <div class="column">
+                    <p id="pics"><img src="images/signature/signature1.jpg"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/signature/signature2.jpg"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"><img src="images/signature/signature3.jpg"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/signature/signature4.jpg"></p>
+                </div>
+            </div>
+    </div>
+<!-- signature hotels pictures end -->
+
+<!-- stock hotels pictures -->
+    <div class="stock gallery_product filter stock">
+            <div class="row">
+                <div class="column">
+                    <p id="pics"><img src="images/stock/stock1.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/stock/stock2.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"><img src="images/stock/stock3.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/stock/stock4.jpg" class="img-responsive"></p>
+                </div>
+            </div>
+    </div>
+<!-- stock hotels pictures end -->
+
+<!-- taj hotels pictures -->
+    <div class="taj gallery_product filter taj">
+            <div class="row">
+                <div class="column">
+                    <p id="pics"><img src="images/taj/taj1.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/taj/taj2.png" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"><img src="images/taj/taj3.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/taj/taj4.jpg" class="img-responsive"></p>
+                </div>
+            </div>
+    </div>
+<!-- taj hotels pictures end -->
+
+<!-- vineyard hotels pictures -->
+    <div class="vineyard gallery_product filter vineyard">
+            <div class="row">
+                <div class="column">
+                    <p id="pics"><img src="images/vineyard/vineyard1.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/vineyard/vineyard2.jpeg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"><img src="images/vineyard/vineyard3.jpg" class="img-responsive"></p>
+                </div>
+                <div class="column">
+                    <p id="pics"> <img src="images/vineyard/vineyard4.jpg" class="img-responsive"></p>
+                </div>
+            </div>
+    </div>
+<!-- vineyard hotels pictures end -->
+        </div>
         </div>
     </div>
+    </div>
+</section>
+<!-- Gallery section end -->
+
+<!-- custom js -->
+<script src="js/main.js"></script>
 </body>
 </html>
