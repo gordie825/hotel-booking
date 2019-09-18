@@ -11,33 +11,40 @@ include 'inc/header.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- bootsrap link -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- custom css -->
     <link href="css/gallery.css" rel="stylesheet" type="text/css">
     <title>Hotels</title>
 </head>
 <body>
-<table class="table table-hover table-dark">
-<tr>
-<th scope="col">ID</th>
-<th scope="col">Hotel Name</th>
-<th scope="col">Daily Rate</th>
-</tr>
-<?php
-$sql = "SELECT id, name, daily_rate FROM hotels";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-// output data of each row
-while($row = $result->fetch_assoc()) {
-echo "<tr><td> " . $row["id"]. "</td><td>" . $row["name"] . "</td><td>"
-. $row["daily_rate"]. "</td></tr>";
-}
-echo "</table>";
-} else { echo "0 results"; }
-$conn->close();
-?>
-</table>
+<!-- table start for details of the hotels -->
+            <table class="table table-hover table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Hotel Name</th>
+                    <th scope="col">Daily Rate</th>
+                </tr>
+                <?php
+                // this wehre we select all the neccessary columns in the database
+                $sql = "SELECT id, name, daily_rate FROM hotels";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                echo "<tr><td> " . $row["id"]. "</td><td>" . $row["name"] . "</td><td>"
+                . $row["daily_rate"]. "</td></tr>";
+                }
+                echo "</table>";
+                } else { echo "0 results"; }
+                $conn->close();
+                ?>
+            </table>
+<!-- table end for details of the hotels -->
+
+<!-- Gallery section start -->
 <div class="container">
         <div class="row">
         <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
