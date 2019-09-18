@@ -2,6 +2,7 @@ body{
     background-image:url(../images/pexels-photo-259447.jpeg);
     object-fit: cover;
 }
+/* header of the gallery  */
 .gallery-title
 {
     font-size: 36px;
@@ -18,6 +19,7 @@ body{
     height: 45px;
     border-bottom: 1px solid #5e5e5e;
 }
+/* styling of the filter button */
 .filter-button
 {
     font-size: 18px;
