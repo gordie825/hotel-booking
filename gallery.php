@@ -50,7 +50,7 @@ include 'inc/header.php';
         <div class="gallery col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 class="gallery-title">Gallery</h1>
         </div>
-
+        <!-- filter buttons start -->
         <div class="filters">
             <button class="btn btn-default filter-button" data-filter="all">All</button>
             <button class="btn btn-default filter-button" data-filter="signature">Signature Lux Hotel</button>
@@ -59,6 +59,7 @@ include 'inc/header.php';
             <button class="btn btn-default filter-button" data-filter="vineyard">Vineyard</button>
             <button class="btn btn-default filter-button" data-filter="stock">Stock Exchange Apartment</button>
         </div>
+        <!-- filter buttons end -->
         <br/>
 
 
@@ -155,7 +156,9 @@ include 'inc/header.php';
     </div>
     </div>
 </section>
+<!-- Gallery section end -->
 
+<!-- custom js -->
 <script src="js/main.js"></script>
 </body>
 </html>
