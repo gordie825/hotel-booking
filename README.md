@@ -1,2 +1,1 @@
-# hotel-booking
-a hotel booking web application
+# Hotel-booking-form

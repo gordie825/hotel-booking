@@ -1,0 +1,65 @@
+/*IMPORTS FONTS */
+
+@import url('https://fonts.googleapis.com/css?family=Hepta+Slab&display=swap');
+
+
+
+
+/*IMPORT FONT END*/
+
+
+
+/*Body Styling START*/
+.form-body{
+    background-image:url(../images/pexels-photo-259447.jpeg);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+/*Body Styling END*/
+/*FORM COLUMN START */
+
+form label{
+
+    color:white;
+    font-weight: bold;
+}
+
+/*FORM COLUMN END*/
+
+/*FORM CONTAINER START */
+.form-container{
+    /* margin:
+    width:50%; */
+    /* background-color:grey; */
+
+}
+/*FORM CONTENT START */
+.form-heading{
+    color:white;
+    font-family: 'Hepta Slab', serif;
+}
+form label{
+    font-family: 'Hepta Slab', serif;
+    font-weight: bold!important;
+    opacity:1;
+}
+
+/*CONFIRMATION BOOKING START */
+.confirm-container{
+    background-color:rgba(167, 152, 171, 0.5);
+}
+
+
+
+.confirmation-final li{
+    list-style-type: none;
+}
+.confirm-booking ul li span{
+    color:white;
+    font-family: 'Hepta Slab', serif;
+}
+/*CONFIRMATION BOOKING END*/
+
+/*FORM CONTENT END8/
+
+/*FORM CONTAINER END */
