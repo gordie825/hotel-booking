@@ -68,9 +68,15 @@ include 'inc/header.php';
             $checkin    =  $_POST['check-in'];
             //check out date -STRING
             $checkout    = $_POST['check-out'];
+            // number of days
+            $datetime1 = new DateTime ($_POST['check-in']);
+            $datetime2 = new DateTime ($_POST['check-out']);
+            $interval = $datetime1->diff($datetime2);
+            $daysBooked = $interval->format('%R%a days');
+
             $amountdue = amountDue($checkin,$checkout,$hotelRate);
             // // create a function
-            confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$amountdue,$firstName,$lastName);
+            confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$daysBooked,$amountdue,$firstName,$lastName);
             }//else statement to check for duplicate bookings or insert new bookings
             else{
                 //once set send to mySQL
@@ -78,7 +84,8 @@ include 'inc/header.php';
                 $lastName   =   $_POST['lastname-confirm'];
                 $checkin    =   $_POST['checkin-confirm'];
                 $checkout   =   $_POST['checkout-confirm'];
-                $hotelchoice =  $_POST['hotel-confirm'];
+                $daysBooked =   $_POST['number-of-days'];
+                $hotelchoice=  $_POST['hotel-confirm'];
                 $amountdue  =   $_POST['cost-confirm'];
                 //select from database where name,hotel, if non exits insert into database
 
@@ -128,11 +135,11 @@ END;
         }
         if(isset($_POST['previous'])){
             if($_POST['previous'] == 'Yes'){
-                $existingBooking_id = $_POST['replace-id'];
+                $existBooking_hotel = $_POST['hotel-confirm'];
                 include 'dailyrate.php';
                 deleteEntry($existingBooking_id,$firstName,$lastName,$hotelchoice,$checkin,$checkout,$amountdue);
-                echo " replace ---- ". $existingBooking_id; 
-                echo " First Name: " . $firstName;
+                echo "<br>" . " Replaced Previous Booking For: ".  $existBooking_hotel; 
+                // echo " First Name: " . $firstName;
             }else{
                 header('Location: gallery.php');
             }

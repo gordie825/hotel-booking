@@ -24,7 +24,7 @@ function amountDue($checkInDate,$checkOutDate,$hotelDailyRate){
     return $amountdue;
 
 }
-function confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$amountdue,$firstName,$lastName){
+function confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$daysBooked,$amountdue,$firstName,$lastName){
     echo<<<END
     <h1 class="h1 text-center form-heading">CONFIRM BOOKING</h1>
 <div class="container confirm-booking">
@@ -49,6 +49,10 @@ function confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$amountdue,$f
         </li>
         <li>
         <span class="book-final">
+        Number Of Days: </span><span class"booking-inputs">$daysBooked</span>
+        </li>
+        <li>
+        <span class="book-final">
         Cost: </span><span class"booking-inputs">R$amountdue</span>
         </li>
     </ul>
@@ -61,6 +65,7 @@ function confirmBooking($guestName,$hotelchoice,$checkin,$checkout,$amountdue,$f
     <input type="hidden" name="hotel-confirm" value="$hotelchoice">
     <input type="hidden" name="checkin-confirm" value="$checkin">
     <input type="hidden" name="checkout-confirm" value="$checkout">
+    <input type="hidden" name="number-of-days" value="$daysBooked">
     <input type="hidden" name="cost-confirm" value="$amountdue">
     <input type="hidden" name="submit">
     <button type="submit" class="btn btn-primary btn-lg btn-block my-2" name="confirm-booking">Confirm Booking</button>   
@@ -74,13 +79,13 @@ function deleteEntry($entryId,$firstName,$lastName,$hotelchoice,$checkin,$checko
     include 'connection.php';
     $sql_delete =   "DELETE FROM booking where id='$entryId'";
     if($conn->query($sql_delete)){
-        echo "deleted";
+        echo "Deleted";
         $sqlInsert = "INSERT INTO 
             booking (firstName, lastName, hotel, check_in_date, check_out_date,amount_due)
            VALUES ('$firstName', '$lastName', '$hotelchoice','$checkin','$checkout','$amountdue')";
 
          if ($conn->query($sqlInsert) === TRUE) {
-            echo "New record created successfully";
+            echo " Previous Booking And New Booking Is Confirmed";
          } else {
             echo "Error: " . $sqlInsert . "<br>" . $conn->error;
         }
@@ -95,7 +100,7 @@ function insertEntry($firstName,$lastName,$hotelchoice,$checkin,$checkout,$amoun
             booking (firstName, lastName, hotel, check_in_date, check_out_date,amount_due)
            VALUES ('$firstName', '$lastName', '$hotelchoice','$checkin','$checkout','$amountdue')";
     if ($conn->query($sqlInsert) === TRUE) {
-        echo "New record created successfully";
+        echo "Booking Is Confirmed";
      } else {
         echo "Error: " . $sqlInsert . "<br>" . $conn->error;
     }
