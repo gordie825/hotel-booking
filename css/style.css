@@ -1,10 +1,5 @@
 /*IMPORTS FONTS */
-
 @import url('https://fonts.googleapis.com/css?family=Hepta+Slab&display=swap');
-
-
-
-
 /*IMPORT FONT END*/
 
 
@@ -19,7 +14,6 @@
 /*FORM COLUMN START */
 
 form label{
-
     color:white;
     font-weight: bold;
 }
@@ -59,7 +53,3 @@ form label{
     font-family: 'Hepta Slab', serif;
 }
 /*CONFIRMATION BOOKING END*/
-
-/*FORM CONTENT END8/
-
-/*FORM CONTAINER END */
