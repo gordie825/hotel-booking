@@ -4,6 +4,7 @@
 
  <?php
 function loadHotels(){
+ // query to database
     $hotels = "SELECT name, daily_rate FROM hotels";
     include 'connection.php';
             $result = $conn->query($hotels);
