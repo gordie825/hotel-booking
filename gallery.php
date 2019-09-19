@@ -35,11 +35,11 @@ include 'inc/header.php';
             <div class="form-row">
                 <div class="col-5 check-in-date">
                 <label for="check-in">Select Check-in Date<span class="glyphicon glyphicon-calender"></span></label>
-                <input type="date" class="form-control" placeholder=".col-5" name="check-in" value="<?php echo date("Y-m-d");?>"required>
+                <input type="date" class="DateFrom form-control" placeholder=".col-5" name="check-in" min="<?php echo date("Y-m-d");?>" max="2020-12-31" value="<?php echo date("Y-m-d");?>"required>
                 </div>
                 <div class="col-5 check-out-date">
                 <label for="check-out">Select Check-out Date<span class="glyphicon glyphicon-calender"><i class="fab fa-html5"></i></span></label>
-                <input type="date" class="form-control" placeholder=".col-3" name="check-out" required> 
+                <input type="date" class="form-control" placeholder=".col-3" name="check-out" min="<?php echo date("Y-m-d");?>" max="2020-12-31" required> 
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block my-2" name="submit">Submit Booking</button> 
@@ -142,5 +142,6 @@ END;
         </div>  
         </div>
     </div>
+    <script src="js/main.js"></script>
 </body>
 </html>

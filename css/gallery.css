@@ -112,3 +112,11 @@ body{
   .lookbook #overlay {
     opacity: 1;
   }
+
+  a{
+      color: white;
+  }
+
+  a :hover{
+      color: white;
+  }
